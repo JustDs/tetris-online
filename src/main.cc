@@ -1,10 +1,6 @@
 #include<QtGui/QApplication>
+#include"static/config.h"
 #include"MainWindow.h"
-enum
-{
-	WINDOW_WIDTH = 800,
-	WINDOW_HEIGHT = 600
-};
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
