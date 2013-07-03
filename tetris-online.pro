@@ -1,5 +1,8 @@
-SOURCES = main.cc
-HEADERS = 
-FORMS = 
+SOURCES += \
+		src/main.cc
+HEADERS += \
+FORMS += \
 
+QT += \
+	opengl
 CONFIG += qt
