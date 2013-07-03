@@ -7,4 +7,6 @@ Makefile
 *.~
 *~
 *.log
+moc_*
+tetris-online
 

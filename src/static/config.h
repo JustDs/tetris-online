@@ -4,7 +4,10 @@ enum
 {
 	//window size
 	WINDOW_WIDTH = 800,
-	WINDOW_HEIGHT = 600
+	WINDOW_HEIGHT = 600,
+	
+	//view settings
+	MAX_FRAMES = 60
 };
 #endif
 
