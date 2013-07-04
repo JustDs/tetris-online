@@ -10,7 +10,7 @@ public:
 		{
 			_value = new T();
 		}
-		return _value;
+		return *_value;
 	}
 private:
 	Singleton();

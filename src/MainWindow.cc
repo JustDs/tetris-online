@@ -1,18 +1,33 @@
 #include "MainWindow.h"
+#include "GlobalSettings.h"
+#include "Painter.h"
 #include<assert.h>
-#include "static/config.h"
-
+#ifdef _WIN32
+	#include<functional>
+#else
+	#include<tr1/functional>
+#endif
+using namespace std::tr1;
+using namespace std::tr1::placeholders;
 MainWindow::MainWindow(QWidget *parents)
-				:QGLWidget(parents)
+				:QGLWidget(parents),
+				settings(Singleton<GlobalSettings>::instance())
 {
 	timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+	paint_func func;
+	func.setColor = bind(&MainWindow::setColor, this, _1, _2, _3, _4);
+	func.fillRect = bind(&MainWindow::fillRect, this, _1, _2, _3, _4);
+	//TODO:write fillImage and other paind function
+	painter = new Painter(func);
+	painter->init();
 }
 
 MainWindow::~MainWindow()
 {
 	timer -> stop();
 	delete timer;
+	delete painter;
 }
 
 void MainWindow::initializeGL()
@@ -23,15 +38,66 @@ void MainWindow::initializeGL()
 	setAutoBufferSwap(false); //swap buffer by hand(timer)
 	assert(doubleBuffer()); //must be double buffer
 
-	timer -> start(1000.0f/MAX_FRAMES); //updateGL every few milliseconds
+	timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
 }
 
 void MainWindow::resizeGL(int width, int height)
 {
+	settings.window_width = width;
+	settings.window_height = height;
+	glViewport(0, 0, width, height);
 }
 
 void MainWindow::paintGL()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	painter->paint();
 	swapBuffers();
+}
+
+void MainWindow::setColor(int R, int G, int B, int A)
+{
+	glColor4f(gl_color(R), gl_color(G), gl_color(B), gl_color(A));
+}
+
+void MainWindow::fillRect(int x, int y, int width, int height)
+{
+	fillRectf(gl_x(x), gl_y(y), gl_width(width), gl_height(height));
+}
+
+void MainWindow::fillRectf(float x, float y, float width, float height)
+{
+	assert(x<=1.0f&&y<=1.0f&&width<=1.0f&&height<=1.0f);
+	glBegin(GL_POLYGON);
+		glVertex3f(x, y, 0.0f);
+		glVertex3f(x, y + height, 0.0f);
+		glVertex3f(x + width, y + height, 0.0f);
+		glVertex3f(x + width, y, 0.0f);
+	glEnd();
+}
+
+float MainWindow::gl_x(int x)
+{
+	return static_cast<float>(x)*2/settings.window_width - 1.0f;
+}
+
+float MainWindow::gl_y(int y)
+{
+	return 1.0f-static_cast<float>(y)*2/settings.window_height;
+}
+
+float MainWindow::gl_width(int width)
+{
+	return static_cast<float>(width)*2/settings.window_width;
+}
+
+float MainWindow::gl_height(int height)
+{
+	return -static_cast<float>(height)*2/settings.window_height;
+}
+
+float MainWindow::gl_color(int c)
+{
+	return static_cast<float>(c)/255;
 }
