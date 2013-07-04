@@ -4,7 +4,8 @@ SOURCES += \
 		src/GlobalSettings.cc \
 		src/Painter.cc \
 		src/TetrisData.cc \
-		src/Tetris.cc
+		src/Tetris.cc \
+		src/BoxToArray.cc
 HEADERS += \
 		src/MainWindow.h \
 		src/static/config.h \
