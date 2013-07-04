@@ -1,6 +1,8 @@
 #include "MainWindow.h"
+#include "Tetris.h"
 #include "GlobalSettings.h"
 #include "Painter.h"
+#include<Singleton.h>
 #include<assert.h>
 #ifdef _WIN32
 	#include<functional>
@@ -11,7 +13,8 @@ using namespace std::tr1;
 using namespace std::tr1::placeholders;
 MainWindow::MainWindow(QWidget *parents)
 				:QGLWidget(parents),
-				settings(Singleton<GlobalSettings>::instance())
+				settings(Singleton<GlobalSettings>::instance()),
+				tetris(Singleton<Tetris>::instance())
 {
 	timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
@@ -52,7 +55,9 @@ void MainWindow::paintGL()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	painter->paint();
+	//next line is a temporary to test
+	painter->setData(tetris.get_self(), tetris.get_other());
+	painter->paintOnline();
 	swapBuffers();
 }
 

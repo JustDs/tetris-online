@@ -1,6 +1,5 @@
 #ifndef GLOBALSETTINGS_H
 #define GLOBALSETTINGS_H
-#include<Singleton.h>
 class GlobalSettings
 {
 public:

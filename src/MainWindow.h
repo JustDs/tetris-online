@@ -5,6 +5,7 @@
 #include<QTimer>
 class GlobalSettings;
 class Painter;
+class Tetris;
 
 class MainWindow : public QGLWidget
 {
@@ -33,6 +34,7 @@ private:
 	QTimer *timer;
 	Painter *painter;
 	GlobalSettings &settings;
+	Tetris &tetris;
 };
 
 #endif
