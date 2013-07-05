@@ -5,14 +5,16 @@ SOURCES += \
 		src/Painter.cc \
 		src/TetrisData.cc \
 		src/Tetris.cc \
-		src/BoxToArray.cc
+		src/BoxToArray.cc \
+		src/Controller.cc
 HEADERS += \
 		src/MainWindow.h \
 		src/static/config.h \
 		src/GlobalSettings.h \
 		src/Painter.h \
 		src/TetrisData.h \
-		src/Tetris.h
+		src/Tetris.h \
+		src/Controller.h
 FORMS += \
 
 QMAKE_CXXFLAGS += -std=c++0x

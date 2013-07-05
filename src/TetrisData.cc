@@ -34,7 +34,7 @@ bool TetrisData::move(char direction)
 			if(canRight())
 			{
 				++mov_box.x;
-				return true
+				return true;
 			}
 			break;
 		default:
@@ -43,7 +43,7 @@ bool TetrisData::move(char direction)
 	return false;
 }
 
-void TetrisData::revolve()
+bool TetrisData::revolve()
 {
 	if(!canRevolve())
 		return false;

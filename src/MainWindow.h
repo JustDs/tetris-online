@@ -38,7 +38,7 @@ private:
 
 	QTimer *paint_timer, *process_timer;
 	Painter *painter;
-	Controller &ctrl;
+	Controller *ctrl;
 	GlobalSettings &settings;
 	Tetris &tetris;
 };

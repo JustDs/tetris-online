@@ -2,8 +2,10 @@
 #include "Tetris.h"
 #include "GlobalSettings.h"
 #include "Painter.h"
+#include "Controller.h"
 #include<Singleton.h>
 #include<assert.h>
+#include<QtGui/QKeyEvent>
 #ifdef _WIN32
 	#include<functional>
 #else
@@ -15,7 +17,7 @@ MainWindow::MainWindow(QWidget *parents)
 				:QGLWidget(parents),
 				settings(Singleton<GlobalSettings>::instance()),
 				tetris(Singleton<Tetris>::instance()),
-				ctrl()
+				ctrl(new Controller)
 {
 	paint_timer = new QTimer;
 	connect(paint_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
@@ -32,19 +34,21 @@ MainWindow::MainWindow(QWidget *parents)
 
 MainWindow::~MainWindow()
 {
-	timer -> stop();
-	delete timer;
+	paint_timer -> stop();
+	process_timer -> stop();
+	delete paint_timer;
+	delete process_timer;
 	delete painter;
 }
 
 void MainWindow::on_process()
 {
-	ctrl.on_timer();
+	ctrl->on_timer();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-	ctrl.key_press(event->key());
+	ctrl->key_press(event->key());
 }
 
 void MainWindow::initializeGL()
