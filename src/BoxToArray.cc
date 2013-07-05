@@ -48,7 +48,7 @@ pos_array_type mov_box_type::toArray()
 					break;
 
 				}
-				default:
+				default:break;
 			}
 			break;
 		}
@@ -83,11 +83,11 @@ pos_array_type mov_box_type::toArray()
 					break;
 
 				}
-				default:
+				default:break;
 			}
 			break;
 		}
-		default:
+		default:break;
 	}
 	case box::S:
 	{
@@ -119,7 +119,7 @@ pos_array_type mov_box_type::toArray()
 					break;
 
 				}
-				default:
+				default:break;
 			}
 		break;
 	}
@@ -176,7 +176,7 @@ pos_array_type mov_box_type::toArray()
 					}
 					break;
 				}
-				default:
+				default:break;
 			}
 		break;
 	}
@@ -233,7 +233,7 @@ pos_array_type mov_box_type::toArray()
 					}
 					break;
 				}
-				default:
+				default:break;
 			}
 		break;
 	}
@@ -290,7 +290,7 @@ pos_array_type mov_box_type::toArray()
 					}
 					break;
 				}
-				default:
+				default:break;
 			}
 		break;
 	}
