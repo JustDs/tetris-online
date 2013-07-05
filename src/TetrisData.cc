@@ -66,10 +66,20 @@ void TetrisData::fix()
 	auto pos_mov = mov_box.toArray();
 	for(int i = 0; i < 4; ++i)
 	{
-		auto iter = static_box.begin();
-		std::advance(iter, pos_mov.y[i]);
-		(*iter)[pos_mov.x[i]] = mov_box.type;				
+		if(pos_mov.y[i] < mov_box.size())
+		{
+			auto iter = static_box.begin();
+			std::advance(iter, pos_mov.y[i]);
+			(*iter)[pos_mov.x[i]] = mov_box.type;
+		}
+		else //out of range
+		{
+			data::line new_line = {0};
+			new_line[pos_mov.x[i]] = mov_box.type;
+			static_box.push_back(new_line);
+		}		
 	}
 	//TODO:fix mov box to static_box
+	//TODO:create a new mov_box
 }
 
