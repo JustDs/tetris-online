@@ -6,10 +6,13 @@
 class GlobalSettings;
 class Painter;
 class Tetris;
+class Controller;
 
 class MainWindow : public QGLWidget
 {
 	Q_OBJECT
+public slots:
+	void on_process();
 
 public:
 	MainWindow(QWidget *parents = 0);
@@ -19,6 +22,8 @@ private:
 	virtual void initializeGL();
 	virtual void resizeGL(int width, int height);
 	virtual void paintGL();
+	
+	virtual void keyPressEvent(QKeyEvent *event);
 	
 	void setColor(int R, int G, int B, int A);
 	void fillRect(int x, int y, int width, int height);
@@ -31,8 +36,9 @@ private:
 	float gl_height(int height);
 	float gl_color(int c);
 
-	QTimer *timer;
+	QTimer *paint_timer, *process_timer;
 	Painter *painter;
+	Controller &ctrl;
 	GlobalSettings &settings;
 	Tetris &tetris;
 };

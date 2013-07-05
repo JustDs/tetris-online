@@ -14,10 +14,14 @@ using namespace std::tr1::placeholders;
 MainWindow::MainWindow(QWidget *parents)
 				:QGLWidget(parents),
 				settings(Singleton<GlobalSettings>::instance()),
-				tetris(Singleton<Tetris>::instance())
+				tetris(Singleton<Tetris>::instance()),
+				ctrl()
 {
-	timer = new QTimer;
-	connect(timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+	paint_timer = new QTimer;
+	connect(paint_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
+	process_timer = new QTimer;
+	connect(process_timer, SIGNAL(timeout()), this, SLOT(on_process()));
+	process_timer -> start(settings.interval);
 	paint_func func;
 	func.setColor = bind(&MainWindow::setColor, this, _1, _2, _3, _4);
 	func.fillRect = bind(&MainWindow::fillRect, this, _1, _2, _3, _4);
@@ -33,15 +37,25 @@ MainWindow::~MainWindow()
 	delete painter;
 }
 
+void MainWindow::on_process()
+{
+	ctrl.on_timer();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+	ctrl.key_press(event->key());
+}
+
 void MainWindow::initializeGL()
 {
-	glClearColor(0.0f,0.0f,0.0f,0.0f);
+	glClearColor(0.0f, 0.0f,0.0f,0.0f);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
 	setAutoBufferSwap(false); //swap buffer by hand(timer)
 	assert(doubleBuffer()); //must be double buffer
 
-	timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
+	paint_timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
 }
 
 void MainWindow::resizeGL(int width, int height)

@@ -7,6 +7,7 @@ public:
 	~GlobalSettings();
 	int window_width, window_height;
 	int max_frames;
+	int interval; //time interval to process data
 private:
 	void init();
 };

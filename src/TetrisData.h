@@ -29,11 +29,15 @@ public:
 	{
 		return mov_box_next;
 	}
-	void move(char direction);
-	void revolve();  // xuan zhuan
+	bool move(char direction);
+	bool revolve();  // xuan zhuan
 	void remove(int begin, int n);
 	void fix();
 private:
+	bool canDown() const;
+	bool canLeft() const;
+	bool canRight() const;
+	bool TetrisData::canRevolve() const;
 	typedef std::list<data::line> _static_box_type;
 	data::static_box_type static_box;
 	data::mov_box_type mov_box, mov_box_next;

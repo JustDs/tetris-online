@@ -12,28 +12,44 @@ TetrisData::~TetrisData()
 
 }
 
-void TetrisData::move(char direction)
+bool TetrisData::move(char direction)
 {
 	switch(direction)
 	{
 		case DOWN:
-			--mov_box.y;
+			if(canDown())
+			{
+				--mov_box.y;
+				return true;
+			}
 			break;
 		case LEFT:
-			--mov_box.x;
+			if(canLeft())
+			{
+				--mov_box.x;
+				return true;
+			}
 			break;
 		case RIGHT:
-			++mov_box.x;
+			if(canRight())
+			{
+				++mov_box.x;
+				return true
+			}
 			break;
 		default:
 			break;
 	}
+	return false;
 }
 
 void TetrisData::revolve()
 {
+	if(!canRevolve())
+		return false;
 	if(++mov_box.direction > 3)
 		mov_box.direction = 0;
+	return true;
 }
 
 void TetrisData::remove(int begin, int n)
