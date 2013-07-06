@@ -25,7 +25,7 @@ namespace data
 		LEFT,
 		RIGHT
 	};
-	typedef vector<char> line;
+	typedef std::vector<char> line;
 	typedef std::vector<line> static_box_type;
 	struct pos_array_type
 	{
