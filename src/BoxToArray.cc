@@ -14,16 +14,16 @@ pos_array_type mov_box_type::toArray()
 			{
 
 				array.x[i] = xx[i] + x;
-				array.y[i] = yy[i];
+				array.y[i] = yy[i] + y;
 			}
 			break;
 		}
 		case box::I:
 		{
-			switch(direction)
+			switch(direction) 
 			{
 
-				case 0:case 2:
+				case 0:case 2: 
 				{
 					char xx[] = {1,1,1,1};
 					char yy[] = {0,1,2,3};
@@ -31,9 +31,9 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
-					break;
+					break; 
 				}
 				case 1:case 3:
 				{
@@ -43,7 +43,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -66,7 +66,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -78,7 +78,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -86,9 +86,7 @@ pos_array_type mov_box_type::toArray()
 				default:break;
 			}
 			break;
-		}
-		default:break;
-	}
+		}	
 	case box::S:
 	{
 		switch(direction)
@@ -102,7 +100,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -114,7 +112,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -135,7 +133,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -147,7 +145,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -159,7 +157,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -172,7 +170,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -192,7 +190,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -204,7 +202,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -216,7 +214,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -229,7 +227,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -249,7 +247,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -261,7 +259,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
@@ -273,7 +271,7 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 
@@ -286,13 +284,15 @@ pos_array_type mov_box_type::toArray()
 					{
 
 						array.x[i] = xx[i] + x;
-						array.y[i] = yy[i];	
+						array.y[i] = yy[i] + y;	
 					}
 					break;
 				}
 				default:break;
 			}
 		break;
+	}
+	default:break;
 	}
 	return array;
 }
