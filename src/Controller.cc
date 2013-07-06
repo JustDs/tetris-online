@@ -31,11 +31,11 @@ void Controller::key_press_playing(int key)
 			self.revolve();
 			break;
 		case Qt::Key_Down:
-		case Qt::Key_S;
+		case Qt::Key_S:
 			self->move(data::DOWN);
 			break;
 		case Qt::Key_Left:
-		case Qt::Key_A;
+		case Qt::Key_A:
 			self->move(data::LEFT);
 			break;
 		case Qt::Key_Right:
