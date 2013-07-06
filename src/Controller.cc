@@ -28,7 +28,7 @@ void Controller::key_press_playing(int key)
 	{
 		case Qt::Key_Up:
 		case Qt::Key_W:
-			self.revolve();
+			self->revolve();
 			break;
 		case Qt::Key_Down:
 		case Qt::Key_S:
