@@ -10,4 +10,5 @@ Makefile
 moc_*
 tetris-online
 *.exe
+test
 
