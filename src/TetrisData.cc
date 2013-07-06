@@ -15,6 +15,11 @@ TetrisData::~TetrisData()
 void TetrisData::init_data()
 {
 	create_mov();
+	swap_mov();
+}
+
+void TetrisData::swap_mov()
+{
 	mov_box = mov_box_next;
 	create_mov();
 }
@@ -61,11 +66,8 @@ bool TetrisData::revolve()
 
 void TetrisData::remove()
 {
-	auto it_erease_1 = static_box.begin();
-	std::advance(it_erease_1, begin);
-	auto it_erease_n = it_erease_1;
-	std::advance(it_erease_n, n);
-	static_box.erase(it_erease_1, it_erease_n);
+	static_box.erase(std::remove(static_box.begin(), static_box.end(),
+								canRemove()), static_box.end());
 }
 
 bool TetrisData::fix()

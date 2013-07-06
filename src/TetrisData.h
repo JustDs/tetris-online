@@ -19,6 +19,7 @@ public:
 		return mov_box_next;
 	}
 	void init_data(); //only for _self
+	void swap_mov();
 	bool move(char direction);
 	bool revolve();  // xuan zhuan
 	void remove();
@@ -36,8 +37,11 @@ private:
 	bool canRight() const;
 	bool canRevolve() const;
 	bool canFix() const;
-	bool canRemove(data::line::iterator iter) const;
-
+	class canRemove
+	{
+	public:
+		bool operator()(const data::line& each_line) const;
+	};
 	void create_mov();
 	//typedef std::list<data::line> _static_box_type;
 	data::static_box_type static_box;

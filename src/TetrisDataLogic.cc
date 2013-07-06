@@ -85,3 +85,9 @@ bool TetrisData::canFix() const
 	}
 	return false;
 }
+
+bool TetrisData::canRemove::operator()(const data::line& each_line) const
+{
+	auto result = std::find(each_line.begin(), each_line.end(), 0);
+	return result == each_line.end();
+}

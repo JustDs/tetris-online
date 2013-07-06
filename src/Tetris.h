@@ -23,6 +23,7 @@ public:
 	{
 		return other;
 	}
+	int state;
 private:
 	TetrisData *self, *other;
 };
