@@ -1,7 +1,6 @@
 #ifndef TETRISDATA_H
 #define TETRISDATA_H
 #include"datafwd.h"
-#include<list>
 class TetrisData
 {
 public:
@@ -22,8 +21,8 @@ public:
 	void init_data(); //only for _self
 	bool move(char direction);
 	bool revolve();  // xuan zhuan
-	void remove(int begin, int n);
-	void fix();
+	void remove();
+	bool fix();
 	TetrisData& operator=(const TetrisData& rhs)
 	{
 		this->static_box = rhs.static_box;
@@ -37,6 +36,7 @@ private:
 	bool canRight() const;
 	bool canRevolve() const;
 	bool canFix() const;
+	bool canRemove(data::line::iterator iter) const;
 
 	void create_mov();
 	//typedef std::list<data::line> _static_box_type;

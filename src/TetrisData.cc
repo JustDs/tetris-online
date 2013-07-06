@@ -12,7 +12,7 @@ TetrisData::~TetrisData()
 
 }
 
-void TetrisData::init()
+void TetrisData::init_data()
 {
 	create_mov();
 	mov_box = mov_box_next;
@@ -59,7 +59,7 @@ bool TetrisData::revolve()
 	return true;
 }
 
-void TetrisData::remove(int begin, int n)
+void TetrisData::remove()
 {
 	auto it_erease_1 = static_box.begin();
 	std::advance(it_erease_1, begin);
@@ -68,8 +68,10 @@ void TetrisData::remove(int begin, int n)
 	static_box.erase(it_erease_1, it_erease_n);
 }
 
-void TetrisData::fix()
+bool TetrisData::fix()
 {
+	if(!canFix())
+		return false;
 	auto pos_mov = mov_box.toArray();
 	for(int i = 0; i < 4; ++i)
 	{
@@ -88,8 +90,9 @@ void TetrisData::fix()
 	}
 	mov_box = mov_box_next;
 	create_mov();
-	//TODO:fix mov box to static_box
-	//TODO:create a new mov_box
+	return true;
+	//TODO:fix mov box to static_box //DONE
+	//TODO:create a new mov_box //DONE
 }
 
 void TetrisData::create_mov()
