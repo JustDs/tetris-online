@@ -1,5 +1,7 @@
 #include "ImageLoader.h"
+#include<lodepng.h>
 #include<assert.h>
+
 ImageLoader::ImageLoader()
 {
 
