@@ -6,7 +6,8 @@ SOURCES += \
 		src/TetrisData.cc \
 		src/Tetris.cc \
 		src/BoxToArray.cc \
-		src/Controller.cc
+		src/Controller.cc \
+		src/ImageLoader.cc
 HEADERS += \
 		src/MainWindow.h \
 		src/static/config.h \
@@ -14,7 +15,8 @@ HEADERS += \
 		src/Painter.h \
 		src/TetrisData.h \
 		src/Tetris.h \
-		src/Controller.h
+		src/Controller.h \
+		src/ImageLoader.h
 
 SOURCES += \
 		lib/lodepng.cc

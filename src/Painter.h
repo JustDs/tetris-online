@@ -1,17 +1,20 @@
 #ifndef PAINTER_H
 #define PAINTER_H
-#ifdef _WIN32
+#ifdef _MSC_VER
 	#include<functional>
 #else
 	#include<tr1/functional>
 #endif
 #include"datafwd.h"
-typedef std::tr1::function<void(int, int, int)> func3i;
-typedef std::tr1::function<void(int, int, int, int)> func4i;
+typedef std::tr1::function<void(int, int, int, int)> funcv4i;
+typedef std::tr1::function<unsigned int(const char*)> funcu1p;
+typedef std::tr1::function<void(int, int, int, int, unsigned int)> funcv5i;
 struct paint_func
 {
-	func4i setColor;
-	func4i fillRect;
+	funcv4i setColor;
+	funcv4i fillRect;
+	funcu1p loadImage;
+	funcv5i paintImage;
 };
 class TetrisData;
 class Painter
@@ -27,10 +30,10 @@ public:
 private:
 	const TetrisData *self_data, *other_data;
 	int window_width, window_height;
-	func4i fillRect;	
-	func4i setColor;
-	unsigned int loadImage(char* filename);//load image from the resource
-	void paintImage(int x,int y, int width, int height, unsigned int img_id);//paint a picture
+	funcv4i fillRect;	
+	funcv4i setColor;
+	funcu1p loadImage;//load image from the resource
+	funcv5i paintImage;//paint a picture
 
 	unsigned int block_img_id_list[7];
 	unsigned int background_img_id; 

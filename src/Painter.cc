@@ -8,6 +8,8 @@ Painter::Painter(paint_func &func)
 {
 	setColor = func.setColor;
 	fillRect = func.fillRect;
+	loadImage = func.loadImage;
+	paintImage = func.paintImage;
 }
 
 Painter::~Painter()
