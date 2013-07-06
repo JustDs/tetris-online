@@ -15,6 +15,9 @@ HEADERS += \
 		src/TetrisData.h \
 		src/Tetris.h \
 		src/Controller.h
+
+SOURCES += \
+		lib/lodepng.cc
 FORMS += \
 
 QMAKE_CXXFLAGS += -std=c++0x
