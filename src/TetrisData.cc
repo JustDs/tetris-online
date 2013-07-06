@@ -12,6 +12,13 @@ TetrisData::~TetrisData()
 
 }
 
+void TetrisData::init()
+{
+	create_mov();
+	mov_box = mov_box_next;
+	create_mov();
+}
+
 bool TetrisData::move(char direction)
 {
 	switch(direction)
@@ -74,12 +81,21 @@ void TetrisData::fix()
 		}
 		else //out of range
 		{
-			data::line new_line = {0};
+			data::line new_line(ROW); //ensure line.size == 12
 			new_line[pos_mov.x[i]] = mov_box.type;
 			static_box.push_back(new_line);
 		}		
 	}
+	mov_box = mov_box_next;
+	create_mov();
 	//TODO:fix mov box to static_box
 	//TODO:create a new mov_box
 }
 
+void TetrisData::create_mov()
+{
+	mov_box_next.type = rand()%box::T + 1;
+	mov_box_next.x = ROW/2 -1;
+	mov_box_next.y = LINE;
+	mov_box_next.direction = 0;
+}

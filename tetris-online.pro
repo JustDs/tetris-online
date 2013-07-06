@@ -4,6 +4,7 @@ SOURCES += \
 		src/GlobalSettings.cc \
 		src/Painter.cc \
 		src/TetrisData.cc \
+		src/TetrisDataLogic.cc \
 		src/Tetris.cc \
 		src/BoxToArray.cc \
 		src/Controller.cc \
