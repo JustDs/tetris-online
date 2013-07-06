@@ -12,5 +12,4 @@ tetris-online
 *.exe
 test
 tetris-online-*
-!./src/test/*.cc
 
