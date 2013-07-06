@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parents)
 	//TODO:write fillImage and other paind function
 	image_loader = new ImageLoader;
 	painter = new Painter(func);
-	painter->init();
+	ctrl->on_timer();
 }
 
 MainWindow::~MainWindow()
@@ -67,6 +67,7 @@ void MainWindow::initializeGL()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); //comment setting alpha)
 	setAutoBufferSwap(false); //swap buffer by hand(timer)
 	assert(doubleBuffer()); //must be double buffer
+	painter->init();
 
 	paint_timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
 }
@@ -100,7 +101,7 @@ void MainWindow::fillRect(int x, int y, int width, int height)
 
 void MainWindow::fillRectf(float x, float y, float width, float height)
 {
-	assert(x<=1.0f&&y<=1.0f&&width<=1.0f&&height<=1.0f);
+	assert(x<=1.0f&&y<=1.0f&&width<=2.0f&&height<=2.0f);
 	glBegin(GL_POLYGON);
 		glVertex3f(x, y, 0.0f);
 		glVertex3f(x, y + height, 0.0f);
@@ -118,7 +119,7 @@ void MainWindow::paintImage(int x, int y, int width, int height, unsigned int id
 
 void MainWindow::paintImagef(float x, float y, float width, float height)
 {
-	assert(x<=1.0f&&y<=1.0f&&width<=1.0f&&height<=1.0f);
+	assert(x<=1.0f&&y<=1.0f&&width<=2.0f&&height<=2.0f);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0f,0.0f);glVertex3f(x, y, 0.0f);
 		glTexCoord2f(0.0f,1.0f);glVertex3f(x, y + height, 0.0f);

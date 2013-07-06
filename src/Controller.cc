@@ -53,6 +53,7 @@ void Controller::on_timer()
 	if(tetris.state%10 == 0) //game not start
 	{
 		self->init_data();
+		tetris.get_other()->init_data(); //for debug
 		++tetris.state;
 		return;
 	}

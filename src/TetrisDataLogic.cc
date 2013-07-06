@@ -1,8 +1,10 @@
 #include<algorithm>
 #include"TetrisData.h"
+#include<assert.h>
 using namespace data;
 bool TetrisData::canDown() const
 {
+	assert(get_mov().type);
 	pos_array_type temp = get_mov().toArray();
 	for(int i=0; i<4; i++)
 	{
@@ -11,6 +13,8 @@ bool TetrisData::canDown() const
 			return false;
 		else
 		{
+			if(temp.y[i] >= static_box.size())
+				continue;
 			if(static_box[temp.y[i]][temp.x[i]])
 				return false;
 		}
@@ -28,6 +32,8 @@ bool TetrisData::canLeft() const
 			return false;
 		else
 		{
+			if(temp.y[i] >= static_box.size())
+				continue;
 			if(static_box[temp.y[i]][temp.x[i]])
 				return false;
 		}
@@ -45,6 +51,8 @@ bool TetrisData::canRight() const
 			return false;
 		else
 		{
+			if(temp.y[i] >= static_box.size())
+				continue;
 			if(static_box[temp.y[i]][temp.x[i]])
 				return false;
 		}
@@ -64,6 +72,8 @@ bool TetrisData::canRevolve() const
 			return false;
 		else
 		{
+			if(temp.y[i] >= static_box.size())
+				continue;
 			if(static_box[temp.y[i]][temp.x[i]])
 				return false;
 		}
@@ -73,12 +83,16 @@ bool TetrisData::canRevolve() const
 
 bool TetrisData::canFix() const
 {
-	pos_array_type temp = get_mov().toArray();
+	mov_box_type mov_box_temp = get_mov();
+	assert(mov_box.type);
+	pos_array_type temp = mov_box_temp.toArray();
 	if(temp.y[0] == 0)
 		return true;
 	for(int i = 0; i < 4; i++)
 	{
 		int y = temp.y[i];
+		if(y >= static_box.size())
+			continue;
 		if(static_box.at(y-1).at(temp.x[i]))
 		{
 			return true;
