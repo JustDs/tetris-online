@@ -31,7 +31,13 @@ namespace data
 	{
 		char x[4], y[4];
 	};
-	struct mov_box_type;
+	struct mov_box_type
+	{
+		char type;
+		char x,y;
+		char direction;
+		pos_array_type toArray() const;
+	};
 }
 #endif
 

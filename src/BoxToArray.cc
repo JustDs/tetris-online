@@ -1,7 +1,7 @@
 #include"TetrisData.h"
 using namespace data;
 
-pos_array_type mov_box_type::toArray()
+pos_array_type mov_box_type::toArray() const
 {
 	pos_array_type array;
 	switch(type)

@@ -1,5 +1,4 @@
 #include "../datafwd.h"
-#include "../TetrisData.h"
 #include <assert.h>
 
 using namespace data;

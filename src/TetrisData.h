@@ -2,16 +2,6 @@
 #define TETRISDATA_H
 #include"datafwd.h"
 #include<list>
-namespace data
-{
-	struct mov_box_type
-	{
-		char type;
-		char x,y;
-		char direction;
-		pos_array_type toArray();
-	};
-}
 class TetrisData
 {
 public:
@@ -38,7 +28,8 @@ private:
 	bool canLeft() const;
 	bool canRight() const;
 	bool canRevolve() const;
-	typedef std::list<data::line> _static_box_type;
+	bool canFix() const;
+	//typedef std::list<data::line> _static_box_type;
 	data::static_box_type static_box;
 	data::mov_box_type mov_box, mov_box_next;
 

@@ -70,3 +70,16 @@ bool TetrisData::canRevolve() const
 	return true;
 }
 
+bool TetrisData::canFix() const
+{
+	pos_array_type temp = get_mov().toArray();
+	if(temp.y[0] == 0)
+		return true;
+	for(int i = 0; i < 4; i++)
+	{
+		int y = temp.y[i];
+		//if(static_box[y-1])
+		//TODO:NOT COMPLETE
+	}
+	return false;
+}
