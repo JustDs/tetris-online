@@ -14,6 +14,10 @@ TetrisData::~TetrisData()
 
 void TetrisData::init_data()
 {
+	if(!static_box.empty())
+	{
+		static_box.erase(static_box.begin(), static_box.end());
+	}
 	create_mov();
 	swap_mov();
 }
@@ -73,7 +77,7 @@ void TetrisData::remove()
 bool TetrisData::fix()
 {
 	if(!canFix())
-		return false;
+		return true;
 	auto pos_mov = mov_box.toArray();
 	for(int i = 0; i < 4; ++i)
 	{
@@ -90,8 +94,9 @@ bool TetrisData::fix()
 			static_box.push_back(new_line);
 		}		
 	}
-	mov_box = mov_box_next;
-	create_mov();
+	swap_mov();
+	if(static_box.size() >= LINE)
+		return false;
 	return true;
 	//TODO:fix mov box to static_box //DONE
 	//TODO:create a new mov_box //DONE

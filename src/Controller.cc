@@ -57,9 +57,10 @@ void Controller::on_timer()
 		++tetris.state;
 		return;
 	}
-	if(self->fix())
+	if(!self->fix())
 	{
-		self->swap_mov();
+		--tetris.state;
+		return;
 	}
 	self->remove();
 	self->move(data::DOWN);

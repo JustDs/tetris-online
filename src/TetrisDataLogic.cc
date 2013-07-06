@@ -91,7 +91,7 @@ bool TetrisData::canFix() const
 	for(int i = 0; i < 4; i++)
 	{
 		int y = temp.y[i];
-		if(y >= static_box.size())
+		if(y > static_box.size())
 			continue;
 		if(static_box.at(y-1).at(temp.x[i]))
 		{
