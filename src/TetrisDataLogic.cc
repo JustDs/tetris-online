@@ -78,8 +78,10 @@ bool TetrisData::canFix() const
 	for(int i = 0; i < 4; i++)
 	{
 		int y = temp.y[i];
-		//if(static_box[y-1])
-		//TODO:NOT COMPLETE
+		if(static_box.at(y-1).at(temp.x[i]))
+		{
+			return true;
+		}
 	}
 	return false;
 }
