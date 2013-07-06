@@ -35,8 +35,9 @@ private:
 	funcu1p loadImage;//load image from the resource
 	funcv5i paintImage;//paint a picture
 
-	int total_line;
-	int	total_row;
+	const int default_window_width;
+	const int default_window_height;
+
 	unsigned int block_img_id_list[7];
 	unsigned int background_img_id; 
 	unsigned int getImageId(char block_type);

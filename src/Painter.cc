@@ -5,7 +5,8 @@
 #include<assert.h>
 Painter::Painter(paint_func &func)
 	:window_width(Singleton<GlobalSettings>::instance().window_width),
-	window_height(Singleton<GlobalSettings>::instance().window_height)
+	window_height(Singleton<GlobalSettings>::instance().window_height),
+	default_window_width(800),default_window_height(600)
 {
 	setColor = func.setColor;
 	fillRect = func.fillRect;
@@ -103,9 +104,9 @@ void Painter::paintOnline()
 	//fillRect(0,0,100,100);
 	paintBackground();
 	//TODO : calulate the offset from the window size
-	int left_box_offset_left = 50;
-	int right_box_offset_left = 450;
-	int box_top_offset = 50;
+	int left_box_offset_left = 100 * window_width/default_window_width;
+	int right_box_offset_left = 460 * window_width/default_window_width;
+	int box_top_offset = 140 * window_height/default_window_height;
 
 	paintSingle(left_box_offset_left , box_top_offset , self_data);
  	paintSingle(right_box_offset_left , box_top_offset , other_data);
