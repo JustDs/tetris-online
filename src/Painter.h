@@ -35,8 +35,8 @@ private:
 	funcu1p loadImage;//load image from the resource
 	funcv5i paintImage;//paint a picture
 
-	const int default_window_width = 800;
-	const int default_window_height = 600;
+	const int default_window_width;
+	const int default_window_height;
 
 	unsigned int block_img_id_list[7];
 	unsigned int background_img_id; 

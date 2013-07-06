@@ -5,7 +5,8 @@
 #include<assert.h>
 Painter::Painter(paint_func &func)
 	:window_width(Singleton<GlobalSettings>::instance().window_width),
-	window_height(Singleton<GlobalSettings>::instance().window_height)
+	window_height(Singleton<GlobalSettings>::instance().window_height),
+	default_window_width(800),default_window_height(600)
 {
 	setColor = func.setColor;
 	fillRect = func.fillRect;
