@@ -54,8 +54,8 @@ bool TetrisData::canRight() const
 bool TetrisData::canRevolve() const
 {
 	mov_box_type mov_temp(get_mov());
-	mov_temp.derection++;
-	mov_temp.derection %= 4;
+	mov_temp.direction++;
+	mov_temp.direction %= 4;
 	pos_array_type temp = mov_temp.toArray();
 	for(int i=0; i<4; i++)
 	{
