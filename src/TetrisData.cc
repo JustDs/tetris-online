@@ -66,7 +66,7 @@ void TetrisData::fix()
 	auto pos_mov = mov_box.toArray();
 	for(int i = 0; i < 4; ++i)
 	{
-		if(pos_mov.y[i] < mov_box.size())
+		if(pos_mov.y[i] < static_box.size())
 		{
 			auto iter = static_box.begin();
 			std::advance(iter, pos_mov.y[i]);
