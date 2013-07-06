@@ -1,5 +1,6 @@
 #ifndef TETRISDATA_H
 #define TETRISDATA_H
+#include<functional>
 #include"datafwd.h"
 class TetrisData
 {
@@ -38,6 +39,7 @@ private:
 	bool canRevolve() const;
 	bool canFix() const;
 	class canRemove
+		: public std::unary_function<data::line, bool>
 	{
 	public:
 		bool operator()(const data::line& each_line) const;

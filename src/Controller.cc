@@ -50,10 +50,10 @@ void Controller::key_press_playing(int key)
 void Controller::on_timer()
 {
 	TetrisData *self = tetris.get_self();
-	if(tetris.status%10 == 0) //game not start
+	if(tetris.state%10 == 0) //game not start
 	{
 		self->init_data();
-		++tetris.status;
+		++tetris.state;
 		return;
 	}
 	if(self->fix())

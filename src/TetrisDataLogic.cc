@@ -1,3 +1,4 @@
+#include<algorithm>
 #include"TetrisData.h"
 using namespace data;
 bool TetrisData::canDown() const

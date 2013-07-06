@@ -66,7 +66,7 @@ bool TetrisData::revolve()
 
 void TetrisData::remove()
 {
-	static_box.erase(std::remove(static_box.begin(), static_box.end(),
+	static_box.erase(std::remove_if(static_box.begin(), static_box.end(),
 								canRemove()), static_box.end());
 }
 
