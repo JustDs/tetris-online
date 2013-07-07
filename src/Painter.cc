@@ -116,6 +116,16 @@ void Painter::resizeWindow(int width,int height)
  	window_height = height;
 }
 
+void Painter::paintSingle()
+{
+	int left_box_offset_left = 100 * window_width/default_window_width;
+	int right_box_offset_left = 460 * window_width/default_window_width;
+	int box_top_offset = 140 * window_height/default_window_height;
+
+	paintPlayer(left_box_offset_left , box_top_offset , self_data);
+	paintBackground();
+}
+
 void Painter::paintOnline()
 {
 	assert(self_data&&other_data);
