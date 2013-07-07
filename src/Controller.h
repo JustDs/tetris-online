@@ -15,6 +15,7 @@ public:
 	void on_timer();
 private:
 	void key_press_playing(int key);
+	void key_press_select(int key);
 	Tetris &tetris;
 
 };

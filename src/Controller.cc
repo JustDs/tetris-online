@@ -18,7 +18,18 @@ Controller::~Controller()
 
 void Controller::key_press(int key)
 {
-	key_press_playing(key);
+	switch(tetris.get_mode())
+	{
+		case Tetris::SINGLEGAME:
+		case Tetris::ONLINEGAME:
+			key_press_playing(key);
+			break;
+		case Tetris::SELECT:
+			key_press_select(key);
+			break;
+		default:
+			break;
+	}
 }
 
 void Controller::key_press_playing(int key)
@@ -47,19 +58,42 @@ void Controller::key_press_playing(int key)
 	}
 }
 
+void Controller::key_press_select(int key)
+{
+	switch(key)
+	{
+		case Qt::Key_Up:
+			if(tetris.get_sub() > Tetris::SINGLEGAME)
+				tetris.prev();
+			break;
+		case Qt::Key_Down:
+			if(tetris.get_sub() < Tetris::GAMESETTING)
+				tetris.next();
+			break;
+		case Qt::Key_Return:
+			tetris.select_mode(tetris.get_sub());
+			break;
+		default:
+			break;
+	}
+}
+
 void Controller::on_timer()
 {
+	int mode = tetris.get_mode();
+	if(mode != Tetris::SINGLEGAME && mode != Tetris::ONLINEGAME)
+		return;
 	TetrisData *self = tetris.get_self();
-	if(tetris.state%10 == 0) //game not start
+	if(tetris.get_state()%10 == 0) //game not start
 	{
 		self->init_data();
 		tetris.get_other()->init_data(); //for debug
-		++tetris.state;
+		tetris.next();
 		return;
 	}
 	if(!self->fix())
 	{
-		--tetris.state;
+		tetris.restart();
 		return;
 	}
 	self->remove();

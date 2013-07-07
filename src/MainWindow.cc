@@ -68,7 +68,7 @@ void MainWindow::initializeGL()
 	setAutoBufferSwap(false); //swap buffer by hand(timer)
 	assert(doubleBuffer()); //must be double buffer
 	painter->init();
-
+	tetris.regist(std::tr1::bind(&MainWindow::on_data_changed, this));
 	paint_timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
 }
 
@@ -79,13 +79,33 @@ void MainWindow::resizeGL(int width, int height)
 	glViewport(0, 0, width, height);
 }
 
+void MainWindow::on_data_changed()
+{
+	painter->setData(tetris.get_self(), tetris.get_other());
+}
+
 void MainWindow::paintGL()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	//next line is a temporary to test
-	painter->setData(tetris.get_self(), tetris.get_other());
-	painter->paintOnline();
+	switch(tetris.get_mode())
+	{
+		case Tetris::SELECT:
+			painter->paintMenu(tetris.get_state()%10);
+			break;
+		case Tetris::SINGLEGAME:
+			painter->paintSingle();
+			break;
+		case Tetris::ONLINEGAME:
+			painter->paintOnline();
+			break;
+		case Tetris::GAMESETTING:
+			painter->paintMenu(tetris.get_state()%10);
+			break;
+		default:
+			break;
+	}
 	swapBuffers();
 }
 

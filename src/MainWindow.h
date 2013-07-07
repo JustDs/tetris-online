@@ -33,6 +33,8 @@ private:
 	void fillRectf(float x, float y, float width, float height);
 	void paintImage(int x, int y, int width, int height, unsigned int id);
 	void paintImagef(float x, float y, float width, float height);
+	
+	void on_data_changed();
 
 	
 	// current coordinate to opengl coordinate
