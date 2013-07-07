@@ -221,7 +221,7 @@ pos_array_type mov_box_type::toArray() const
 				}
 				case 3:
 				{
-					char xx[] = {0,1,2,2};
+					char xx[] = {2,0,1,2};
 					char yy[] = {0,1,1,1};
 					for(int i=0; i<4;i++)
 					{

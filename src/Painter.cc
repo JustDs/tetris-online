@@ -25,7 +25,7 @@ unsigned int Painter::getImageId(char block_type)
 	switch(block_type)
 	{
 		case data::box::I :
-			img_id = block_img_id_list[0];
+			img_id = block_img_id_list[1];
 			break;
 		case data::box::J :
 			img_id = block_img_id_list[1];
@@ -59,31 +59,35 @@ void Painter::paintBlock(int offset_x,int offset_y,int x_index,int y_index,unsig
 		//TODO : caculate the block size & the position to paint from the window size
 		width = 800/40;
 		height = 600/30;
-		paintImage( x_index * width + offset_x , y_index * height + offset_y , width , height , block_img_id);
+		if( y_index < data::LINE - 1 )
+		{
+			paintImage( x_index * width + offset_x , y_index * height + offset_y , width , height , block_img_id);
+	
+		}
 	}
 }
 
 void Painter::paintSingle(int offset_x,int offset_y,const TetrisData *data)
 {
 	data::static_box_type static_box_data = data->get_static();
-	int i = 0;
-	for(auto iter = static_box_data.begin(); iter != static_box_data.end(); ++iter,++i)
+	int i = 1;
+	for(auto iter = static_box_data.begin(); iter != static_box_data.end(); iter++,i++)
 	{
-		for(int j=0; j<data::ROW; j++)
+		for(int j=0; j <= data::ROW; j++)
 		{
 			unsigned int img_id = getImageId((*iter)[j]);
-			paintBlock( offset_x , offset_y , data::LINE - i , j , img_id );
+			paintBlock( offset_x , offset_y , j , data::LINE - 1 - i , img_id );
 		}
 	}
 
 	auto mov_box_data = data->get_mov().toArray();
 	for(int i=0;i<4;i++)
 	{
-		if( mov_box_data.x[i] < data::ROW && mov_box_data.y[i] < static_box_data.size() )
+		if( mov_box_data.x[i] < data::ROW && mov_box_data.y[i] < data::LINE )
 		{
-			paintBlock( offset_x, offset_y , mov_box_data.x[i] , mov_box_data.y[i] , getImageId(data->get_mov().type));
-		}
-	}
+			paintBlock( offset_x, offset_y , mov_box_data.x[i] ,data::LINE - 1 - mov_box_data.y[i] , getImageId(data->get_mov().type));
+	 	}
+	} 
 }
 
 void Painter::paintBackground()
@@ -102,7 +106,6 @@ void Painter::paintOnline()
 	assert(self_data&&other_data);
 	//setColor(255, 0, 0, 255);
 	//fillRect(0,0,100,100);
-	paintBackground();
 	//TODO : calulate the offset from the window size
 	int left_box_offset_left = 100 * window_width/default_window_width;
 	int right_box_offset_left = 460 * window_width/default_window_width;
@@ -110,6 +113,7 @@ void Painter::paintOnline()
 
 	paintSingle(left_box_offset_left , box_top_offset , self_data);
  	paintSingle(right_box_offset_left , box_top_offset , other_data);
+	paintBackground();
 }
 
 void Painter::init()
