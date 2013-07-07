@@ -47,7 +47,7 @@ bool TetrisData::canRight() const
 	for(int i=0; i<4; i++)
 	{
 		temp.x[i]++;
-		if(temp.x[i]>ROW)
+		if(temp.x[i]>ROW-1)
 			return false;
 		else
 		{

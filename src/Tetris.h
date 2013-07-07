@@ -7,6 +7,15 @@ class Tetris
 public:
 	Tetris();
 	~Tetris();
+	enum //statement
+	{
+		UNINITIALIZED = 0,
+		SINGLEINIT = 10,
+		SINGLEGAMING = 11,
+
+		ONLINEINIT = 20,
+		ONLINEGAMING = 21
+	};
 	const TetrisData* get_self() const
 	{
 		return self;

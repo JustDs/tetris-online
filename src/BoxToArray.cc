@@ -3,12 +3,12 @@ using namespace data;
 
 pos_array_type mov_box_type::toArray() const
 {
-	pos_array_type array;
+	pos_array_type array = {{0,0,0,0},{0,0,0,0}};
 	switch(type)
 	{
 		case box::O:
 		{
-			char xx[] = {0,1,0,1};
+			char xx[] = {1,2,1,2};
 			char yy[] = {0,0,1,1};
 			for(int i=0; i<4;i++)
 			{
@@ -125,7 +125,7 @@ pos_array_type mov_box_type::toArray() const
 	{
 		switch(direction)
 			{
-				case 0:
+				case 2:
 				{
 					char xx[] = {0,1,2,1};
 					char yy[] = {1,1,1,2};
@@ -137,7 +137,7 @@ pos_array_type mov_box_type::toArray() const
 					}
 					break;
 				}
-				case 1:
+				case 3:
 				{
 					char xx[] = {1,1,2,1};
 					char yy[] = {0,1,1,2};
@@ -149,7 +149,7 @@ pos_array_type mov_box_type::toArray() const
 					}
 					break;
 				}
-				case 2:
+				case 0:
 				{
 					char xx[] = {1,0,1,2};
 					char yy[] = {0,1,1,1};
@@ -162,7 +162,7 @@ pos_array_type mov_box_type::toArray() const
 					break;
 
 				}
-				case 3:
+				case 1:
 				{
 					char xx[] = {1,0,1,1};
 					char yy[] = {0,1,1,2};
