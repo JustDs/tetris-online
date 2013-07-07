@@ -23,6 +23,8 @@ public:
 	Painter(paint_func &func);
 	~Painter();
 	void init();
+	void paintMenu(int state);
+	void paintSingle();
 	void paintOnline();
 	void setData(const TetrisData *self_data, const TetrisData *other_data);
 	void resizeWindow(int width,int height);
@@ -38,11 +40,11 @@ private:
 	const int default_window_width;
 	const int default_window_height;
 
-	unsigned int block_img_id_list[7];
+	unsigned int block_img_id_list[8];
 	unsigned int background_img_id; 
 	unsigned int getImageId(char block_type);
 	void paintBackground();
 	void paintBlock(int offset_x,int offset_y,int x_index,int y_index,unsigned int block_img_id);
-	void paintSingle(int offset_x,int offset_y,const TetrisData *data);
+	void paintPlayer(int offset_x,int offset_y,const TetrisData *data);
 };
 #endif

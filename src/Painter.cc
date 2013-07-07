@@ -3,12 +3,14 @@
 #include "GlobalSettings.h"
 #include "TetrisData.h"
 #include<assert.h>
+
+
 Painter::Painter(paint_func &func)
-	:window_width(Singleton<GlobalSettings>::instance().window_width),
+ 	:window_width(Singleton<GlobalSettings>::instance().window_width),
 	window_height(Singleton<GlobalSettings>::instance().window_height),
 	default_window_width(800),default_window_height(600)
 {
-	setColor = func.setColor;
+ 	setColor = func.setColor;
 	fillRect = func.fillRect;
 	loadImage = func.loadImage;
 	paintImage = func.paintImage;
@@ -28,22 +30,22 @@ unsigned int Painter::getImageId(char block_type)
 			img_id = block_img_id_list[1];
 			break;
 		case data::box::J :
-			img_id = block_img_id_list[1];
-			break;
-		case data::box::L :
 			img_id = block_img_id_list[2];
 			break;
-		case data::box::O :
+		case data::box::L :
 			img_id = block_img_id_list[3];
 			break;
-		case data::box::S :
+		case data::box::O :
 			img_id = block_img_id_list[4];
+			break;
+		case data::box::S :
+			img_id = block_img_id_list[5];
 			break;		
 		case data::box::Z :
-			img_id = block_img_id_list[5];
+			img_id = block_img_id_list[6];
 			break;
 		case data::box::T :
-			img_id = block_img_id_list[6];
+			img_id = block_img_id_list[7];
 			break;
 		default:
 			img_id = 0;
@@ -59,7 +61,7 @@ void Painter::paintBlock(int offset_x,int offset_y,int x_index,int y_index,unsig
 		//TODO : caculate the block size & the position to paint from the window size
 		width = 800/40;
 		height = 600/30;
-		if( y_index < data::LINE - 1 )
+		if( y_index <= data::LINE - 1 )
 		{
 			paintImage( x_index * width + offset_x , y_index * height + offset_y , width , height , block_img_id);
 	
@@ -67,11 +69,24 @@ void Painter::paintBlock(int offset_x,int offset_y,int x_index,int y_index,unsig
 	}
 }
 
-void Painter::paintSingle(int offset_x,int offset_y,const TetrisData *data)
+void Painter::paintMenu(int state)
+{
+	switch(state)
+	{
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		default:
+			break;
+	}
+}
+
+void Painter::paintPlayer(int offset_x,int offset_y,const TetrisData *data)
 {
 	data::static_box_type static_box_data = data->get_static();
-	int i = 1;
-	for(auto iter = static_box_data.begin(); iter != static_box_data.end(); iter++,i++)
+	int i = 0;
+	for(auto iter = static_box_data.begin(); iter != static_box_data.end(); ++iter,++i)
 	{
 		for(int j=0; j <= data::ROW; j++)
 		{
@@ -111,21 +126,22 @@ void Painter::paintOnline()
 	int right_box_offset_left = 460 * window_width/default_window_width;
 	int box_top_offset = 140 * window_height/default_window_height;
 
-	paintSingle(left_box_offset_left , box_top_offset , self_data);
- 	paintSingle(right_box_offset_left , box_top_offset , other_data);
+	paintPlayer(left_box_offset_left , box_top_offset , self_data);
+ 	paintPlayer(right_box_offset_left , box_top_offset , other_data);
 	paintBackground();
 }
 
 void Painter::init()
 {
 	//TODO : Load the image from the resource files.
-	block_img_id_list[0] = loadImage("I.png");
+	block_img_id_list[0] = loadImage("holder.png");
 	block_img_id_list[1] = loadImage("J.png");
-	block_img_id_list[2] = loadImage("L.png");
-	block_img_id_list[3] = loadImage("O.png");
-	block_img_id_list[4] = loadImage("S.png");
-	block_img_id_list[5] = loadImage("Z.png");
-	block_img_id_list[6] = loadImage("T.png");
+	block_img_id_list[2] = loadImage("J.png");
+	block_img_id_list[3] = loadImage("L.png");
+	block_img_id_list[4] = loadImage("O.png");
+	block_img_id_list[5] = loadImage("S.png");
+	block_img_id_list[6] = loadImage("Z.png");
+	block_img_id_list[7] = loadImage("T.png");
 	background_img_id = loadImage("background.png");
 }
 
