@@ -1,5 +1,6 @@
 #include "Tetris.h"
 #include "TetrisData.h"
+#include<stdlib.h>
 Tetris::Tetris()
 		:state(0)
 {
@@ -31,8 +32,14 @@ void Tetris::start(int mode)
 	{
 		case SINGLEGAME:
 			start_single();
+			break;
 		case ONLINEGAME:
 			start_online();
+			break;
+		case GAMESETTING:
+			break;
+		case GAMEEXITING:
+			exit(0);
 		default:
 			break;
 	}

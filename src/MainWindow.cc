@@ -60,7 +60,7 @@ void MainWindow::initializeGL()
 {
 	glClearColor(0.0f, 0.0f,0.0f,0.0f);
 	glShadeModel(GL_FLAT);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_REPLACE);
 	glEnable(GL_BLEND); //allow alpha
@@ -101,7 +101,7 @@ void MainWindow::paintGL()
 			painter->paintOnline();
 			break;
 		case Tetris::GAMESETTING:
-			painter->paintMenu(tetris.get_state()%10);
+			painter->paintInstructions();
 			break;
 		default:
 			break;

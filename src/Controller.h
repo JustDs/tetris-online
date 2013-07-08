@@ -16,6 +16,7 @@ public:
 private:
 	void key_press_playing(int key);
 	void key_press_select(int key);
+	void key_press_setting(int key);
 	Tetris &tetris;
 
 };

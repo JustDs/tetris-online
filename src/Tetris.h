@@ -2,7 +2,7 @@
 #define ONLINEDATA_H
 #include"datafwd.h"
 #include<vector>
-#ifdef _MSC_VCR
+#ifdef _MSC_VER
 	#include<functional>
 #else
 	#include<tr1/functional>
@@ -18,6 +18,7 @@ public:
 		SINGLEGAME = 1,
 		ONLINEGAME = 2,
 		GAMESETTING = 3,
+		GAMEEXITING = 4,
 
 		SINGLEINIT = 10,
 		SINGLEGAMING = 11,
