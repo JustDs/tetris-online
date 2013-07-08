@@ -3,12 +3,12 @@
 #include "GlobalSettings.h"
 #include "TetrisData.h"
 #include<assert.h>
-
+#include<string>
 
 Painter::Painter(paint_func &func)
  	:window_width(Singleton<GlobalSettings>::instance().window_width),
 	window_height(Singleton<GlobalSettings>::instance().window_height),
-	default_window_width(800),default_window_height(600)
+	default_window_width(800),default_window_height(600),options_num(4)
 {
  	setColor = func.setColor;
 	fillRect = func.fillRect;
@@ -27,25 +27,25 @@ unsigned int Painter::getImageId(char block_type)
 	switch(block_type)
 	{
 		case data::box::I :
-			img_id = block_img_id_list[1];
+			img_id = block_img_id[1];
 			break;
 		case data::box::J :
-			img_id = block_img_id_list[2];
+			img_id = block_img_id[2];
 			break;
 		case data::box::L :
-			img_id = block_img_id_list[3];
+			img_id = block_img_id[3];
 			break;
 		case data::box::O :
-			img_id = block_img_id_list[4];
+			img_id = block_img_id[4];
 			break;
 		case data::box::S :
-			img_id = block_img_id_list[5];
+			img_id = block_img_id[5];
 			break;		
 		case data::box::Z :
-			img_id = block_img_id_list[6];
+			img_id = block_img_id[6];
 			break;
 		case data::box::T :
-			img_id = block_img_id_list[7];
+			img_id = block_img_id[7];
 			break;
 		default:
 			img_id = 0;
@@ -64,25 +64,36 @@ void Painter::paintBlock(int offset_x,int offset_y,int x_index,int y_index,unsig
 		if( y_index <= data::LINE - 1 )
 		{
 			paintImage( x_index * width + offset_x , y_index * height + offset_y , width , height , block_img_id);
-	
 		}
 	}
 }
 
 void Painter::paintMenu(int state)
 {
-	switch(state)
+	int offset_x = 270 * window_width/default_window_width;
+	int offset_y = 300 * window_height/default_window_height;
+	int width = 260 * window_width/default_window_width;
+	int height = 60 * window_height/default_window_height;
+	for(int i=0;i<options_num;i++)
 	{
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		default:
-			break;
+		if(i == state-1)
+		{
+			paintImage(offset_x, offset_y + i*height ,width,height,options_img_id[2*i+1]);
+		}
+		else
+		{
+			paintImage(offset_x, offset_y + i*height,width,height,options_img_id[2*i]);
+		}
 	}
+	paintBackground(background_img_id[0]);
 }
 
-void Painter::paintPlayer(int offset_x,int offset_y,const TetrisData *data)
+void Painter::paintInstructions()
+{
+	paintImage(0,0,window_width,window_height,background_img_id[3]);
+}
+
+void Painter::paintStatic(int offset_x,int offset_y,const TetrisData *data)
 {
 	data::static_box_type static_box_data = data->get_static();
 	int i = 0;
@@ -94,20 +105,29 @@ void Painter::paintPlayer(int offset_x,int offset_y,const TetrisData *data)
 			paintBlock( offset_x , offset_y , j , data::LINE - 1 - i , img_id );
 		}
 	}
+}
 
-	auto mov_box_data = data->get_mov().toArray();
+void Painter::paintMov(int offset_x,int offset_y,data::mov_box_type mov_box_data, bool still)
+{
+	auto mov_box_pos_data = mov_box_data.toArray();
 	for(int i=0;i<4;i++)
 	{
-		if( mov_box_data.x[i] < data::ROW && mov_box_data.y[i] < data::LINE )
+		if( still || (mov_box_pos_data.x[i] < data::ROW && mov_box_pos_data.y[i] < data::LINE) )
 		{
-			paintBlock( offset_x, offset_y , mov_box_data.x[i] ,data::LINE - 1 - mov_box_data.y[i] , getImageId(data->get_mov().type));
+			paintBlock( offset_x, offset_y , mov_box_pos_data.x[i] ,data::LINE - 1 - mov_box_pos_data.y[i] , getImageId(mov_box_data.type));
 	 	}
 	} 
 }
 
-void Painter::paintBackground()
+void Painter::paintPlayer(int offset_x,int offset_y,const TetrisData *data)
 {
-	paintImage(0,0,window_width,window_height,background_img_id);
+	paintStatic(offset_x,offset_y,data);
+	paintMov(offset_x,offset_y,data->get_mov(),false);
+}
+
+void Painter::paintBackground(unsigned int background_id)
+{
+	paintImage(0,0,window_width,window_height,background_id);
 }
 
 void Painter::resizeWindow(int width,int height)
@@ -118,12 +138,14 @@ void Painter::resizeWindow(int width,int height)
 
 void Painter::paintSingle()
 {
-	int left_box_offset_left = 100 * window_width/default_window_width;
-	int right_box_offset_left = 460 * window_width/default_window_width;
+	int left_box_offset_left = 260 * window_width/default_window_width;
 	int box_top_offset = 140 * window_height/default_window_height;
+	int next_left_offset = 520 * window_width/default_window_width;
+	int next_top_offset = 300 * window_height/default_window_height;
 
 	paintPlayer(left_box_offset_left , box_top_offset , self_data);
-	paintBackground();
+	paintMov(next_left_offset,next_top_offset,self_data->get_mov_next(),true);
+	paintBackground(background_img_id[1]);
 }
 
 void Painter::paintOnline()
@@ -136,23 +158,62 @@ void Painter::paintOnline()
 	int right_box_offset_left = 460 * window_width/default_window_width;
 	int box_top_offset = 140 * window_height/default_window_height;
 
+	int next_left_offset = 280 * window_width/default_window_width; 
+	int next_top_offset = 300 * window_height/default_window_height;
+
 	paintPlayer(left_box_offset_left , box_top_offset , self_data);
  	paintPlayer(right_box_offset_left , box_top_offset , other_data);
-	paintBackground();
+	paintMov(next_left_offset,next_top_offset,self_data->get_mov_next(),true);
+	paintBackground(background_img_id[2]);
 }
 
 void Painter::init()
 {
 	//TODO : Load the image from the resource files.
-	block_img_id_list[0] = loadImage("holder.png");
-	block_img_id_list[1] = loadImage("J.png");
-	block_img_id_list[2] = loadImage("J.png");
-	block_img_id_list[3] = loadImage("L.png");
-	block_img_id_list[4] = loadImage("O.png");
-	block_img_id_list[5] = loadImage("S.png");
-	block_img_id_list[6] = loadImage("Z.png");
-	block_img_id_list[7] = loadImage("T.png");
-	background_img_id = loadImage("background.png");
+	block_img_id[0] = loadImage("holder.png");
+	#ifdef _WIN32
+		block_img_id[1] = loadImage("blocks//I.png");
+		block_img_id[2] = loadImage("blocks//J.png");
+		block_img_id[3] = loadImage("blocks//L.png");
+		block_img_id[4] = loadImage("blocks//O.png");
+		block_img_id[5] = loadImage("blocks//S.png");
+		block_img_id[6] = loadImage("blocks//Z.png");
+		block_img_id[7] = loadImage("blocks//T.png");
+		background_img_id[0] = loadImage("backgrounds//start.png");
+		background_img_id[1] = loadImage("backgrounds//single.png");
+		background_img_id[2] = loadImage("backgrounds//online.png");
+		background_img_id[3] = loadImage("backgrounds//instructions.png");
+		
+		options_img_id[0] = loadImage("options//single_0.png");
+		options_img_id[1] = loadImage("options//single_1.png");
+		options_img_id[2] = loadImage("options//double_0.png");
+		options_img_id[3] = loadImage("options//double_1.png");
+		options_img_id[4] = loadImage("options//instructions_0.png");
+		options_img_id[5] = loadImage("options//instructions_1.png");
+		options_img_id[6] = loadImage("options//exit_0.png");
+		options_img_id[7] = loadImage("options//exit_1.png");
+	#else
+		block_img_id[1] = loadImage("blocks/I.png");
+		block_img_id[2] = loadImage("blocks/J.png");
+		block_img_id[3] = loadImage("blocks/L.png");
+		block_img_id[4] = loadImage("blocks/O.png");
+		block_img_id[5] = loadImage("blocks/S.png");
+		block_img_id[6] = loadImage("blocks/Z.png");
+		block_img_id[7] = loadImage("blocks/T.png");
+		background_img_id[0] = loadImage("backgrounds/start.png");
+		background_img_id[1] = loadImage("backgrounds/single.png");
+		background_img_id[2] = loadImage("backgrounds/online.png");
+		background_img_id[3] = loadImage("backgrounds/instructions.png");
+		
+		options_img_id[0] = loadImage("options/single_0.png");
+		options_img_id[1] = loadImage("options/single_1.png");
+		options_img_id[2] = loadImage("options/double_0.png");
+		options_img_id[3] = loadImage("options/double_1.png");
+		options_img_id[4] = loadImage("options/instructions_0.png");
+		options_img_id[5] = loadImage("options/instructions_1.png");
+		options_img_id[6] = loadImage("options/exit_0.png");
+		options_img_id[7] = loadImage("options/exit_1.png");
+	#endif
 }
 
 void Painter::setData(const TetrisData *self_data, const TetrisData *other_data)
