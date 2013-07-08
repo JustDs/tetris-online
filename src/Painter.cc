@@ -99,9 +99,9 @@ void Painter::paintStatic(int offset_x,int offset_y,const TetrisData *data)
 	int i = 0;
 	for(auto iter = static_box_data.begin(); iter != static_box_data.end(); ++iter,++i)
 	{
-		for(int j=0; j <= data::ROW; j++)
+		for(int j=0; j < data::ROW; j++)
 		{
-			unsigned int img_id = getImageId((*iter)[j]);
+			unsigned int img_id = getImageId((*iter).at(j));
 			paintBlock( offset_x , offset_y , j , data::LINE - 1 - i , img_id );
 		}
 	}
