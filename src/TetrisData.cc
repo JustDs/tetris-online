@@ -7,9 +7,52 @@ TetrisData::TetrisData()
 
 }
 
+TetrisData::TetrisData(const char *other)
+{
+	int num_line = *reinterpret_cast<const int*>(other);
+	other += sizeof(int);
+	mov_box = *reinterpret_cast<const data::mov_box_type*>(other);
+	other += sizeof(data::mov_box_type);
+	mov_box_next = *reinterpret_cast<const data::mov_box_type*>(other);
+	other += sizeof(data::mov_box_type);
+
+	for(int i = 0; i < num_line; i++)
+	{
+		data::line temp(data::ROW);
+		for(int j = 0; j < data::ROW; j++)
+		{
+			temp[j] = *other;
+			++other;
+		}
+		static_box.push_back(temp);
+	}
+}
+
 TetrisData::~TetrisData()
 {
 
+}
+
+int TetrisData::c_str(char *buff)
+{
+	int num_line = static_cast<int>(static_box.size());
+	int packet_size = sizeof(int) + data::ROW * num_line \
+						+ 2 * sizeof(data::mov_box_type);
+	*reinterpret_cast<int*>(buff) = num_line;
+	buff += sizeof(int);
+	*reinterpret_cast<mov_box_type*>(buff) = mov_box;
+	buff += sizeof(mov_box_type);
+	*reinterpret_cast<mov_box_type*>(buff) = mov_box_next;
+	buff += sizeof(mov_box_type);
+	for(int i = 0; i < num_line; i++)
+	{
+		for(int j = 0; j < data::ROW; j++)
+		{
+			*buff = static_box[i][j];
+			++buff;
+		}
+	}
+	return packet_size;
 }
 
 void TetrisData::init_data()

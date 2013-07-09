@@ -1,12 +1,14 @@
 #ifndef TETRISDATA_H
 #define TETRISDATA_H
-#include<functional>
+#include<functional>  //for std::unary_function
 #include"datafwd.h"
 class TetrisData
 {
 public:
 	TetrisData();
+	TetrisData(const char *other);
 	~TetrisData();
+	int c_str(char *self);
 	const data::static_box_type& get_static() const
 	{
 		return static_box;

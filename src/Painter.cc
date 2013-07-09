@@ -74,6 +74,7 @@ void Painter::paintMenu(int state)
 	int offset_y = 300 * window_height/default_window_height;
 	int width = 260 * window_width/default_window_width;
 	int height = 60 * window_height/default_window_height;
+	paintBackground(background_img_id[0]);
 	for(int i=0;i<options_num;i++)
 	{
 		if(i == state-1)
@@ -85,7 +86,6 @@ void Painter::paintMenu(int state)
 			paintImage(offset_x, offset_y + i*height,width,height,options_img_id[2*i]);
 		}
 	}
-	paintBackground(background_img_id[0]);
 }
 
 void Painter::paintInstructions()
@@ -143,9 +143,9 @@ void Painter::paintSingle()
 	int next_left_offset = 520 * window_width/default_window_width;
 	int next_top_offset = 300 * window_height/default_window_height;
 
+	paintBackground(background_img_id[1]);
 	paintPlayer(left_box_offset_left , box_top_offset , self_data);
 	paintMov(next_left_offset,next_top_offset,self_data->get_mov_next(),true);
-	paintBackground(background_img_id[1]);
 }
 
 void Painter::paintOnline()
@@ -161,10 +161,10 @@ void Painter::paintOnline()
 	int next_left_offset = 280 * window_width/default_window_width; 
 	int next_top_offset = 300 * window_height/default_window_height;
 
+	paintBackground(background_img_id[2]);
 	paintPlayer(left_box_offset_left , box_top_offset , self_data);
  	paintPlayer(right_box_offset_left , box_top_offset , other_data);
 	paintMov(next_left_offset,next_top_offset,self_data->get_mov_next(),true);
-	paintBackground(background_img_id[2]);
 }
 
 void Painter::init()

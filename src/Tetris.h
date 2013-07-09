@@ -48,6 +48,13 @@ public:
 	{
 		return other;
 	}
+	void swapOther(TetrisData *other)
+	{
+		TetrisData *temp = this->other;
+		this->other = other;
+		notify();
+		delete temp;
+	}
 	void notify();
 	void regist(regist_func func);
 	void select_mode(int mode)
