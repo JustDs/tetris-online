@@ -1,5 +1,6 @@
 #include "TetrisData.h"
 #include<algorithm>
+#include<stdlib.h>
 using namespace data;
 
 TetrisData::TetrisData()

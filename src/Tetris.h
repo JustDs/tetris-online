@@ -2,16 +2,12 @@
 #define ONLINEDATA_H
 #include"datafwd.h"
 #include<vector>
-#ifdef _MSC_VER
-	#include<functional>
-#else
-	#include<tr1/functional>
-#endif
+#include<functional>
 class TetrisData;
 class Tetris
 {
 public:
-	typedef std::tr1::function<void(void)> regist_func;
+	typedef std::function<void(void)> regist_func;
 	enum //statement
 	{
 		SELECT = 0,

@@ -1,10 +1,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#ifdef _MSC_VER
-	#include<functional>
-#else
-	#include<tr1/functional>
-#endif
+#include<functional>
 class Tetris;
 class Controller
 {

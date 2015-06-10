@@ -7,13 +7,9 @@
 #include<Singleton.h>
 #include<assert.h>
 #include<QtGui/QKeyEvent>
-#ifdef _MSC_VER
-	#include<functional>
-#else
-	#include<tr1/functional>
-#endif
-using namespace std::tr1;
-using namespace std::tr1::placeholders;
+#include<functional>
+using namespace std;
+using namespace std::placeholders;
 MainWindow::MainWindow(QWidget *parents)
 				:QGLWidget(parents),
 				settings(Singleton<GlobalSettings>::instance()),
@@ -68,7 +64,7 @@ void MainWindow::initializeGL()
 	setAutoBufferSwap(false); //swap buffer by hand(timer)
 	assert(doubleBuffer()); //must be double buffer
 	painter->init();
-	tetris.regist(std::tr1::bind(&MainWindow::on_data_changed, this));
+	tetris.regist(std::bind(&MainWindow::on_data_changed, this));
 	paint_timer -> start(1000.0f/settings.max_frames); //updateGL every few milliseconds
 }
 

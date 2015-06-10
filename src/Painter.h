@@ -1,14 +1,10 @@
 #ifndef PAINTER_H
 #define PAINTER_H
-#ifdef _MSC_VER
-	#include<functional>
-#else
-	#include<tr1/functional>
-#endif
+#include<functional>
 #include"datafwd.h"
-typedef std::tr1::function<void(int, int, int, int)> funcv4i;
-typedef std::tr1::function<unsigned int(const char*)> funcu1p;
-typedef std::tr1::function<void(int, int, int, int, unsigned int)> funcv5i;
+typedef std::function<void(int, int, int, int)> funcv4i;
+typedef std::function<unsigned int(const char*)> funcu1p;
+typedef std::function<void(int, int, int, int, unsigned int)> funcv5i;
 struct paint_func
 {
 	funcv4i setColor;

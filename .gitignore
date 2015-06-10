@@ -13,4 +13,4 @@ tetris-online
 src/test/test
 tetris-online-*
 test_*
-
+*.app

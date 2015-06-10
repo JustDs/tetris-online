@@ -3,8 +3,8 @@
 #include "TetrisData.h"
 #include "Singleton.h"
 #include<QtGui/QKeyEvent>
-using namespace std::tr1;
-using namespace std::tr1::placeholders;
+using namespace std;
+using namespace std::placeholders;
 Controller::Controller()
 			:tetris(Singleton<Tetris>::instance())
 {

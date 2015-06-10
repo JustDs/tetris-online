@@ -1,11 +1,7 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 #include<vector>
-#ifdef _MSC_VER
-	#include<memory>
-#else
-	#include<tr1/memory>
-#endif
+#include<memory>
 struct PNG
 {
 	std::vector<unsigned char> data;
@@ -14,7 +10,7 @@ struct PNG
 class ImageLoader
 {
 public:
-	typedef std::tr1::shared_ptr<PNG> PNG_PTR;
+	typedef std::shared_ptr<PNG> PNG_PTR;
 	ImageLoader();
 	~ImageLoader();
 	unsigned int load(const char *filename);
